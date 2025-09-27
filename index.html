@@ -1,68 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colin Luangrath</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Colin Luangrath — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <meta name="description" content="Colin Luangrath — CS & Psychology student. Projects, resume, contact." />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --panel:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#7c5cff;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      color-scheme: dark;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;padding:0;
+      background: linear-gradient(180deg,#071122 0%, #0b1524 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+    .container{max-width:1100px;margin:32px auto;padding:24px}
+
+    /* NAV */
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#5de6c6);display:grid;place-items:center;color:#071122;font-weight:800}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta{background:linear-gradient(90deg,var(--accent),#5de6c6);padding:8px 14px;border-radius:8px;color:#071122;font-weight:700;text-decoration:none}
+    .icon-btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-top:28px}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:16px;padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    h1{margin:0;font-size:32px}
+    .sub{color:var(--muted);margin-top:8px}
+    .tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+    .tag{background:var(--glass);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px}
+
+    /* SIDE CARD */
+    .profile{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+    .avatar{width:140px;height:140px;border-radius:18px;background:linear-gradient(135deg,#243b6b,#6b3b8f);display:grid;place-items:center;font-weight:900;font-size:40px}
+    .stats{display:flex;gap:12px}
+    .stat{background:var(--glass-2);padding:10px 12px;border-radius:12px}
+
+    /* PROJECTS */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px 0}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* FOOTER */
+    footer{opacity:0.8;margin-top:32px;color:var(--muted);font-size:14px}
+
+    /* RESPONSIVE */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      nav{display:none}
+      .grid{grid-template-columns:1fr}
+      .container{padding:16px;margin:16px}
+    }
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted)}
+
+    /* subtle animations */
+    .appear{transform:translateY(6px);opacity:0;animation:lift .6s ease forwards}
+    @keyframes lift{to{transform:none;opacity:1}}
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container">
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">CL</div>
+        <div>
+          <div style="font-weight:800">Colin Luangrath</div>
+          <div class="muted" style="font-size:13px">CS & Psychology — UW–Madison</div>
+        </div>
+      </div>
+
       <nav>
-        <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <a class="cta" href="/resume.pdf" target="_blank">Resume</a>
       </nav>
-    </div>
-  </header>
 
-  <main class="container">
-    <section id="intro">
-      <h1>Hi, I'm Colin Luangrath.</h1>
-      <p class="subtitle">A Computer Science and Psychology student at UW–Madison, passionate about AI, automation, and human-computer interaction.</p>
-    </section>
-
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I am a motivated student with hands-on experience in Python, Java, Machine Learning, and web technologies. I'm actively seeking opportunities to apply my problem-solving skills in a collaborative team environment. My interests lie at the intersection of technology and psychology, exploring how tech impacts human motivation.</p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <div class="card">
-          <h3>DLIO on ALCF Systems</h3>
-          <p>Conducted benchmarking and performance analysis for Deep Learning I/O (DLIO) on the Polaris supercomputer, improving the understanding of AI workload scaling and optimizing performance for MLPerf submissions by reducing I/O bottlenecks.</p>
-        </div>
-        <div class="card">
-          <h3>Lightweight Performance Tracer</h3>
-          <p>Developed a lightweight performance tracer in C++ for Intel ITT APIs for low-overhead analysis on the Aurora supercomputer, reducing time per trace by over 28,000 μs.</p>
-        </div>
-        <div class="card">
-          <h3>YOLO Object Detection App</h3>
-          <p>A phone-based real-time object detection tool utilizing the YOLO algorithm.</p>
-        </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">🌓</button>
+        <a class="btn-ghost" href="#contact">Get in touch</a>
       </div>
-    </section>
+    </header>
 
-    <section id="contact">
-      <h2>Get in Touch</h2>
-      <div class="contact-links">
-        <a href="mailto:colinluangrath@gmail.com"><i class="fas fa-envelope"></i> colinluangrath@gmail.com</a>
-        <a href="https://github.com/cluangrath4" target="_blank"><i class="fab fa-github"></i> github.com/cluangrath4</a>
+    <main>
+      <section class="hero">
+        <div class="hero-card appear">
+          <h1>Hi — I’m Colin. I build ML tools, demos, and research projects.</h1>
+          <p class="sub">Computer Science & Psychology student at UW–Madison. Interested in machine learning systems, human–AI interaction, and creative tools.</p>
+
+          <div class="tags">
+            <div class="tag">Python</div>
+            <div class="tag">Machine Learning</div>
+            <div class="tag">Systems</div>
+            <div class="tag">Computer Vision</div>
+            <div class="tag">Game Design</div>
+          </div>
+
+          <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="cta" href="#projects">See Projects</a>
+            <a class="btn-ghost" href="https://github.com/cluangrath4" target="_blank">GitHub</a>
+            <a class="btn-ghost" href="https://twitter.com/" target="_blank">Twitter</a>
+          </div>
+        </div>
+
+        <aside class="hero-card profile appear" style="justify-self:end">
+          <div class="avatar">CL</div>
+          <div style="font-weight:700">Colin Luangrath</div>
+          <div class="muted">CS & Psychology — UW–Madison</div>
+
+          <div class="stats" style="margin-top:10px">
+            <div class="stat"><div style="font-weight:700">14+</div><div class="muted" style="font-size:12px">Projects</div></div>
+            <div class="stat"><div style="font-weight:700">Argonne</div><div class="muted" style="font-size:12px">Research Intern</div></div>
+          </div>
+
+          <div style="margin-top:12px;width:100%">
+            <a class="cta" href="mailto:you@domain.com">Email me</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="projects" class="appear">
+        <h2 style="margin-top:28px">Selected Projects</h2>
+        <div class="grid" style="margin-top:12px">
+          <article class="card">
+            <h3>Performance evaluation of DLIO</h3>
+            <p class="muted">Scaling study for deep learning I/O on ALCF systems. Tools, traces, and visualizations.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a class="btn-ghost" href="#">Repo</a>
+              <a class="btn-ghost" href="#">Read paper</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Bitsy narrative escape game</h3>
+            <p class="muted">Psychology-driven interactive narrative built for Game Design class. Uses branching timelines and player reflection.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a class="btn-ghost" href="#">Play</a>
+              <a class="btn-ghost" href="#">Source</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>YOLO phone detector prototype</h3>
+            <p class="muted">Mobile object detection demo — real-time YOLO integration and UI for accessibility use-cases.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a class="btn-ghost" href="#">Demo</a>
+              <a class="btn-ghost" href="#">Docs</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="appear">
+        <h2 style="margin-top:28px">About</h2>
+        <div class="hero-card" style="margin-top:12px">
+          <p class="muted">I study the intersection of machine learning systems and human-centered research. Currently exploring how AI tools affect student motivation and building tools that make ML research easier to reproduce.</p>
+          <ul class="muted" style="margin-top:10px">
+            <li>UW–Madison — CS & Psychology</li>
+            <li>Argonne National Lab — ML workload emulator (Research Intern)</li>
+            <li>Interests: ML systems, CV, HCI, Game Design</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="appear">
+        <h2 style="margin-top:28px">Contact</h2>
+        <div class="hero-card" style="margin-top:12px;display:flex;gap:18px;flex-direction:column">
+          <p class="muted">Want to collaborate, or need code help? Email me or open an issue on GitHub.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="cta" href="mailto:you@domain.com">Email</a>
+            <a class="btn-ghost" href="https://github.com/cluangrath4/cluangrath.github.io" target="_blank">Repo</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>© Colin Luangrath — Built with HTML & CSS</div>
+        <div class="muted">Hosted on GitHub Pages</div>
       </div>
-    </section>
-  </main>
+    </footer>
+  </div>
 
-  <footer>
-    <div class="container">
-      <p>© 2025 Colin Luangrath</p>
-    </div>
-  </footer>
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if(saved === 'light') setLight();
+    themeBtn.addEventListener('click',()=>{
+      if(document.documentElement.style.getPropertyValue('--bg')===''){
+      }
+      if(document.documentElement.style.getPropertyValue('--light-mode')==='true'){
+        setDark();
+      } else {
+        setLight();
+      }
+    });
+    function setLight(){
+      root.style.setProperty('--bg','#f7fafc');
+      root.style.setProperty('--panel','#ffffff');
+      root.style.setProperty('--muted','#4a5568');
+      root.style.setProperty('--accent','#6b46c1');
+      root.style.setProperty('color-scheme','light');
+      root.style.setProperty('--light-mode','true');
+      document.body.style.color = '#0b1220';
+      localStorage.setItem('theme','light');
+    }
+    function setDark(){
+      root.style.setProperty('--bg','#0f1724');
+      root.style.setProperty('--panel','#0b1220');
+      root.style.setProperty('--muted','#9aa4b2');
+      root.style.setProperty('--accent','#7c5cff');
+      root.style.setProperty('color-scheme','dark');
+      root.style.setProperty('--light-mode','false');
+      document.body.style.color = '#e6eef6';
+      localStorage.setItem('theme','dark');
+    }
+  </script>
 </body>
 </html>
+
