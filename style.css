@@ -1,42 +1,133 @@
+:root {
+  --background-color: #0F172A;
+  --primary-text-color: #E2E8F0;
+  --heading-color: #FFFFFF;
+  --accent-color: #38BDF8;
+  --card-background: #1E293B;
+  --card-border: #334155;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  background: #f9f9f9;
-  color: #333;
+  background: var(--background-color);
+  color: var(--primary-text-color);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 header {
-  background: #222;
-  color: #fff;
-  padding: 1rem;
-  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
 }
 
 nav a {
-  margin: 0 1rem;
-  color: #fff;
+  color: var(--primary-text-color);
   text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: var(--accent-color);
 }
 
 main {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
+  padding: 4rem 2rem;
 }
 
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+}
+
+h1, h2 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--heading-color);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--primary-text-color);
+  max-width: 600px;
+}
+
+#projects .project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--heading-color);
+  margin-top: 0;
+}
+
+#contact .contact-links {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+#contact a {
+  color: var(--primary-text-color);
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+#contact a:hover {
+  color: var(--accent-color);
+}
+
+#contact a i {
+  margin-right: 0.5rem;
+  color: var(--accent-color);
 }
 
 footer {
   text-align: center;
-  padding: 1rem;
-  background: #eee;
+  padding: 2rem 0;
+  background: var(--card-background);
+  border-top: 1px solid var(--card-border);
   margin-top: 2rem;
 }
