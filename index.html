@@ -5,41 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Colin Luangrath</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script> 
 </head>
 <body>
   <header>
-    <h1>Hi, I'm Colin</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="container">
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
+    <section id="intro">
+      <h1>Hi, I'm Colin Luangrath.</h1>
+      <p class="subtitle">A Computer Science and Psychology student at UW–Madison, passionate about AI, automation, and human-computer interaction.</p>
+    </section>
+
     <section id="about">
       <h2>About Me</h2>
-      <p>I'm a Computer Science and Psychology student at UW–Madison. Interested in AI, automation, and how tech impacts human motivation.</p>
+      <p>I am a motivated student with hands-on experience in Python, Java, Machine Learning, and web technologies. I'm actively seeking opportunities to apply my problem-solving skills in a collaborative team environment. My interests lie at the intersection of technology and psychology, exploring how tech impacts human motivation.</p>
     </section>
 
     <section id="projects">
       <h2>Projects</h2>
-      <ul>
-        <li><b>DLIO on ALCF Systems</b> – Evaluating deep learning I/O performance on supercomputers.</li>
-        <li><b>Bitsy Escape Room</b> – A narrative game exploring psychology and self-discovery.</li>
-        <li><b>YOLO Object Detection App</b> – Phone-based real-time object detection tool.</li>
-      </ul>
+      <div class="project-grid">
+        <div class="card">
+          <h3>DLIO on ALCF Systems</h3>
+          <p>Conducted benchmarking and performance analysis for Deep Learning I/O (DLIO) on the Polaris supercomputer, improving the understanding of AI workload scaling and optimizing performance for MLPerf submissions by reducing I/O bottlenecks.</p>
+        </div>
+        <div class="card">
+          <h3>Lightweight Performance Tracer</h3>
+          <p>Developed a lightweight performance tracer in C++ for Intel ITT APIs for low-overhead analysis on the Aurora supercomputer, reducing time per trace by over 28,000 μs.</p>
+        </div>
+        <div class="card">
+          <h3>YOLO Object Detection App</h3>
+          <p>A phone-based real-time object detection tool utilizing the YOLO algorithm.</p>
+        </div>
+      </div>
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:colinluangrath@gmail.com">colinluangrath@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/cluangrath4">github.com/cluangrath4</a></p>
+      <h2>Get in Touch</h2>
+      <div class="contact-links">
+        <a href="mailto:colinluangrath@gmail.com"><i class="fas fa-envelope"></i> colinluangrath@gmail.com</a>
+        <a href="https://github.com/cluangrath4" target="_blank"><i class="fab fa-github"></i> github.com/cluangrath4</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Colin Luangrath</p>
+    <div class="container">
+      <p>© 2025 Colin Luangrath</p>
+    </div>
   </footer>
 </body>
 </html>
