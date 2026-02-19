@@ -51,21 +51,19 @@
           <p style="font-size: 12px;">CS, Psychology, and Game Design @ UW-Madison</p>
           <p style="font-size: 12px; margin-top: 12px;">10+ Projects<br>Center for Dairy Research</p>
         </div>
-        <div class="window">
+        <article class="window">
           <div class="title-bar">
             <span>Now_Playing.exe</span>
-            <div class="title-bar-controls">
-              <span class="title-bar-btn close-btn">X</span>
-            </div>
+            <div class="title-bar-controls"><span class="title-bar-btn close-btn">X</span></div>
           </div>
           <div class="window-content" style="display: flex; gap: 12px; align-items: center;">
-            <div style="width: 48px; height: 48px; background: #000; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎵</div>
+            <img id="now-playing-art" src="" style="width: 48px; height: 48px; background: #000; object-fit: cover; border: 1px solid #888;" alt="Album Art">
             <div>
-              <strong>Currently Listening</strong>
-              <p id="now-playing-text" style="font-size: 12px; margin: 2px 0 0 0; color: #555;">Not playing anything</p>
+              <strong style="font-size: 13px;">Currently Listening</strong>
+              <p id="now-playing-text" style="font-size: 12px; margin: 4px 0 0 0;">Loading...</p>
             </div>
           </div>
-        </div>
+        </article>
         <div class="window">
           <div class="title-bar">
             <span>Library.txt</span>

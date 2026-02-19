@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function fetchLastFm() {
-  // Replace these with your actual Last.fm details
   const username = 'Catiitaro';
-  const apiKey = '484f78e76b19871360e701f315d02dc2';
+  const apiKey = '484f78e76b19871360e701f315d02dc2'; 
   const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
+
   try {
     const res = await fetch(url);
     const data = await res.json();
@@ -32,6 +32,8 @@ async function fetchLastFm() {
     const isPlaying = track['@attr'] && track['@attr'].nowplaying;
     
     const textElement = document.getElementById('now-playing-text');
+    const artElement = document.getElementById('now-playing-art');
+    
     if (textElement) {
       if (isPlaying) {
         textElement.innerHTML = `<strong>${track.name}</strong><br><span style="color: #555;">by ${track.artist['#text']}</span>`;
@@ -39,13 +41,18 @@ async function fetchLastFm() {
         textElement.innerHTML = `<em>Last played:</em><br>${track.name} <br><span style="color: #555;">by ${track.artist['#text']}</span>`;
       }
     }
+
+    if (artElement && track.image && track.image.length > 0) {
+      // Index 1 is usually the 'medium' sized image
+      const imageUrl = track.image[1]['#text'];
+      if (imageUrl) {
+        artElement.src = imageUrl;
+      } else {
+        artElement.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='; // blank fallback
+      }
+    }
+
   } catch (err) {
     console.error('Error fetching Last.fm data:', err);
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Call immediately, then update every 30 seconds
-  fetchLastFm();
-  setInterval(fetchLastFm, 30000); 
-});
