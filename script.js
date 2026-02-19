@@ -25,7 +25,6 @@ async function fetchLastFm() {
   const username = 'Catiitaro';
   const apiKey = '484f78e76b19871360e701f315d02dc2';
   const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
-
   try {
     const res = await fetch(url);
     const data = await res.json();
