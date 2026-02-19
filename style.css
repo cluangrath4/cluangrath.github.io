@@ -40,14 +40,22 @@ body { background: var(--bg); color: var(--text-color); line-height: 1.4; transi
   font-weight: bold; font-size: 14px; display: flex; justify-content: space-between;
   align-items: center; text-shadow: var(--title-shadow); border-bottom: 1px solid var(--border-color);
 }
-.title-bar-controls { display: flex; gap: 4px; }
+
+/* Standardized Window Buttons */
+.title-bar-controls { display: flex; gap: 3px; }
 .title-bar-btn {
-  width: 16px; height: 16px; background: #ece9d8; border: 1px solid white;
-  border-right-color: #888; border-bottom-color: #888; border-radius: 2px; display: inline-block; cursor: pointer;
+  width: 18px; height: 18px;
+  background: #ece9d8; border: 1px solid white; border-right-color: #888; border-bottom-color: #888;
+  border-radius: 2px; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 11px; font-weight: bold; color: black; line-height: 1;
 }
+.min-btn { align-items: flex-end; padding-bottom: 3px; }
+.max-btn { font-size: 13px; }
+.close-btn { background: #e04343; color: white; }
+.title-bar-btn:active { border-color: #888; border-right-color: white; border-bottom-color: white; }
 [data-theme="dark"] .title-bar-btn { background: #555; border-color: #777; }
-.close-btn { background: #e04343; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; line-height: 1; }
 [data-theme="dark"] .close-btn { background: #8b2c2c; }
+
 .window-content { padding: 16px; }
 
 h1, h2, h3 { margin: 0 0 12px 0; font-weight: bold; }
@@ -96,15 +104,15 @@ details.unit-folder summary {
 }
 
 details.unit-folder summary::-webkit-details-marker {
-  display: none; /* Hides default arrow */
+  display: none;
 }
 
 details.unit-folder summary::before {
-  content: "📁"; /* Default closed folder */
+  content: "📁";
 }
 
 details.unit-folder[open] summary::before {
-  content: "📂"; /* Open folder */
+  content: "📂";
 }
 
 details.unit-folder[open] summary {
@@ -125,7 +133,7 @@ details.unit-folder[open] summary {
   cursor: grabbing;
 }
 .window {
-  position: relative; /* Needed for z-index to work during drag */
+  position: relative;
   transition: box-shadow 0.2s;
 }
 .window.maximized {
@@ -139,3 +147,18 @@ details.unit-folder[open] summary {
   transform: none !important;
   border-radius: 0;
 }
+
+/* Bottom Taskbar for Minimized Apps */
+#bottom-taskbar {
+  position: fixed; bottom: 0; left: 0; width: 100%;
+  background: linear-gradient(to bottom, #245edb 0%, #003dbb 100%);
+  border-top: 2px solid #00138c;
+  display: flex; gap: 4px; padding: 4px 8px;
+  z-index: 10000; min-height: 34px; box-sizing: border-box;
+}
+.taskbar-item {
+  background: #3a93ff; color: white; border: 1px solid #00138c; border-radius: 2px;
+  padding: 4px 12px; cursor: pointer; font-size: 12px; font-weight: bold;
+  display: flex; align-items: center; box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3);
+}
+.taskbar-item:active { box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4); }

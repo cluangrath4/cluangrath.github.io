@@ -73,11 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Testing Windows-like functionality
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme Toggle (Keep your existing theme code here)
+  // Dark Mode
   const themeBtn = document.getElementById('themeBtn');
   const root = document.documentElement;
   const savedTheme = localStorage.getItem('xp-theme');
-  if (savedTheme === 'dark') root.setAttribute('data-theme', 'dark');
+  
+  if (savedTheme === 'dark') {
+    root.setAttribute('data-theme', 'dark');
+  }
+
   if (themeBtn) {
     themeBtn.addEventListener('click', () => {
       if (root.getAttribute('data-theme') === 'dark') {
@@ -90,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Window Mode State
+  // Window Mode + Reset Logics
   let windowMode = localStorage.getItem('xp-window-mode') !== 'off';
   const toggle = document.getElementById('window-mode-toggle');
   
@@ -99,21 +103,22 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('change', (e) => {
       windowMode = e.target.checked;
       localStorage.setItem('xp-window-mode', windowMode ? 'on' : 'off');
-      if (!windowMode) resetWindows(); // Snap back to grid if turned off
+      if (!windowMode) resetWindows(); 
     });
   }
 
   function resetWindows() {
     document.querySelectorAll('.window').forEach(win => {
-      win.style.display = '';
+      win.style.visibility = 'visible';
       win.style.transform = 'none';
       win.style.zIndex = '';
       win.dataset.x = 0;
       win.dataset.y = 0;
       win.classList.remove('maximized');
-      const content = win.querySelector('.window-content');
-      if (content) content.style.display = '';
     });
+    // Clear taskbar
+    const taskbar = document.getElementById('bottom-taskbar');
+    if (taskbar) taskbar.innerHTML = '';
   }
 
   const resetBtn = document.getElementById('resetBtn');
@@ -124,43 +129,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dragging and buttons logic
+  // Draggable Windows
   let highestZ = 100;
+  const taskbar = document.getElementById('bottom-taskbar');
+
   document.querySelectorAll('.window').forEach(win => {
-    if (win.closest('#journal')) return;
+    if (win.closest('#journal')) return; // Skip Psych assignments
 
     const titleBar = win.querySelector('.title-bar');
-    const content = win.querySelector('.window-content');
-    const btns = win.querySelectorAll('.title-bar-btn');
-    const minBtn = btns[0];
-    const maxBtn = btns[1];
-    const closeBtn = btns[2];
+    const windowTitle = titleBar ? titleBar.querySelector('span').innerText : 'Window';
+    
+    // Explicitly grab the buttons by their new classes
+    const minBtn = win.querySelector('.min-btn');
+    const maxBtn = win.querySelector('.max-btn');
+    const closeBtn = win.querySelector('.close-btn');
 
     win.addEventListener('mousedown', () => {
       if (!windowMode) return;
       win.style.zIndex = ++highestZ;
     });
 
+    // Close: Hide window but keep grid intact
     if (closeBtn) {
       closeBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
         e.stopPropagation();
-        win.style.display = 'none';
+        win.style.visibility = 'hidden'; 
       });
     }
 
+    // Minimize: Hide window and create taskbar item
     if (minBtn) {
-      minBtn.innerHTML = '<span style="position:relative; top:-3px; color:black;">_</span>';
       minBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
         e.stopPropagation();
-        content.style.display = content.style.display === 'none' ? '' : 'none';
+        
+        win.style.visibility = 'hidden';
+        
+        if (taskbar) {
+          const taskItem = document.createElement('div');
+          taskItem.className = 'taskbar-item';
+          taskItem.innerText = windowTitle;
+          
+          taskItem.addEventListener('click', () => {
+            win.style.visibility = 'visible';
+            win.style.zIndex = ++highestZ;
+            taskItem.remove(); // Remove from taskbar
+          });
+          
+          taskbar.appendChild(taskItem);
+        }
       });
     }
 
+    // Maximize
     if (maxBtn) {
-      maxBtn.innerHTML = '<span style="color:black;">□</span>';
-      maxBtn.style.fontSize = '12px';
       maxBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
         e.stopPropagation();
@@ -169,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Dragging Logic
     let isDragging = false;
     let startX, startY;
 
@@ -196,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         win.dataset.y = y;
         win.style.transform = `translate(${x}px, ${y}px)`;
       });
-
+      // why are you here?? get out!
       document.addEventListener('mouseup', () => {
         isDragging = false;
       });

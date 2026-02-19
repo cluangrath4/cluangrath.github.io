@@ -24,7 +24,16 @@
     </header>
     <main>
       <article class="window" style="max-width: 600px; margin: 0 auto;">
-        <div class="title-bar"><span>About_Me.txt</span></div>
+        
+        <div class="title-bar">
+          <span>About_Me.txt</span>
+          <div class="title-bar-controls">
+            <span class="title-bar-btn min-btn">_</span>
+            <span class="title-bar-btn max-btn">□</span>
+            <span class="title-bar-btn close-btn">X</span>
+          </div>
+        </div>
+
         <div class="window-content">
           <h3>About</h3>
           <p>I'm a 3rd year Undergraduate at the University of Wisconsin-Madison studying Computer Science, Psychology, and Game Design.</p>
@@ -42,6 +51,9 @@
       </label>
     </div>
   </div>
+  
+  <div id="bottom-taskbar"></div>
+  
   <script src="script.js"></script>
 </body>
 </html>
