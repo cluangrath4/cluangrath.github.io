@@ -22,55 +22,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchLastFm() {
   const username = 'Catiitaro';
-  const apiKey = '484f78e76b19871360e701f315d02dc2'; 
-  
-  // Step 1: Get the current track
-  const recentTracksUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
+  const apiKey = '484f78e76b19871360e701f315d02dc2';
+  const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
 
   try {
-    const res = await fetch(recentTracksUrl);
+    const res = await fetch(url);
     const data = await res.json();
+    
+    // Return currently playing song
     const track = data.recenttracks.track[0];
     const isPlaying = track['@attr'] && track['@attr'].nowplaying;
     
     const textElement = document.getElementById('now-playing-text');
     const artElement = document.getElementById('now-playing-art');
     
+    // Safely get artist and track name
+    const artistName = track.artist ? track.artist['#text'] : 'Unknown Artist';
+    const trackName = track.name || 'Unknown Track';
+
     if (textElement) {
       if (isPlaying) {
-        textElement.innerHTML = `<strong>${track.name}</strong><br><span style="color: #555;">by ${track.artist['#text']}</span>`;
+        textElement.innerHTML = `<strong>${trackName}</strong><br><span style="color: #555;">by ${artistName}</span>`;
       } else {
-        textElement.innerHTML = `<em>Last played:</em><br>${track.name} <br><span style="color: #555;">by ${track.artist['#text']}</span>`;
+        textElement.innerHTML = `<em>Last played:</em><br>${trackName} <br><span style="color: #555;">by ${artistName}</span>`;
       }
     }
 
-    // Step 2: Use album.getinfo for the image
-    const artist = track.artist['#text'];
-    const album = track.album['#text'];
-    
-    if (artist && album && artElement) {
-      const albumInfoUrl = `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apiKey}&artist=${encodeURIComponent(artist)}&album=${encodeURIComponent(album)}&format=json`;
-      
-      const albumRes = await fetch(albumInfoUrl);
-      const albumData = await albumRes.json();
-      
-      if (albumData.album && albumData.album.image) {
-        // Grab the 'large' or 'medium' image
-        const imageUrl = albumData.album.image[2]['#text'] || albumData.album.image[1]['#text'];
-        
-        if (imageUrl && imageUrl.startsWith('http')) {
-          artElement.src = imageUrl;
-        } else {
-          artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
-        }
+    if (artElement) {
+      // Check if the image array exists and has links
+      if (track.image && track.image.length > 2 && track.image[2]['#text']) {
+        artElement.src = track.image[2]['#text']; // size: large
       } else {
+        // Fallback icon
         artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
       }
-    } else if (artElement) {
-       artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
     }
 
   } catch (err) {
     console.error('Error fetching Last.fm data:', err);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchLastFm();
+  setInterval(fetchLastFm, 30000);
+});
