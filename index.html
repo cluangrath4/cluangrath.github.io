@@ -12,11 +12,12 @@
       <div class="taskbar">
         <div style="font-weight: bold; font-size: 16px;"><a href="index.html" style="color: inherit; text-decoration: none;">Colin Luangrath</a></div>
         <nav>
-          <a href="projects.html">Projects</a>
-          <a href="journal.html">Internet Psych</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
+          <a href="projects.html" class="btn">Projects</a>
+          <a href="journal.html" class="btn">Internet Psych</a>
+          <a href="about.html" class="btn">About</a>
+          <a href="contact.html" class="btn">Contact</a>
           <a class="btn" href="resume.pdf" target="_blank">Resume.pdf</a>
+          <button class="btn" id="resetBtn">Reset Windows</button>
           <button class="btn" id="themeBtn">Toggle Theme</button>
         </nav>
       </div>
@@ -79,6 +80,11 @@
         </div>
       </aside>
     </main>
+    <div style="margin-top: 32px; text-align: center; color: white; text-shadow: 1px 1px 2px black;">
+      <label style="cursor: pointer; font-size: 14px;">
+        <input type="checkbox" id="window-mode-toggle" checked> Enable Draggable Windows
+      </label>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

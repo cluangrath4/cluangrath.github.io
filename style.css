@@ -116,3 +116,26 @@ details.unit-folder[open] summary {
 .unit-content {
   padding: 16px;
 }
+
+/* Window States and Cursors */
+.title-bar {
+  cursor: grab;
+}
+.title-bar:active {
+  cursor: grabbing;
+}
+.window {
+  position: relative; /* Needed for z-index to work during drag */
+  transition: box-shadow 0.2s;
+}
+.window.maximized {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  transform: none !important;
+  border-radius: 0;
+}
