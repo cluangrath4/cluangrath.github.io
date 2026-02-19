@@ -4,243 +4,293 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Colin Luangrath — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <meta name="description" content="Colin Luangrath — CS & Psychology student. Projects, resume, contact." />
   <style>
-    :root{
-      --bg:#0f1724;
-      --panel:#0b1220;
-      --muted:#9aa4b2;
-      --accent:#7c5cff;
-      --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
-      color-scheme: dark;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    :root {
+      --bg: #004E98; /* Classic XP Desktop Blue */
+      --window-bg: #ECE9D8;
+      --title-bg: linear-gradient(to bottom, #0058e6 0%, #3a93ff 8%, #288eff 40%, #127dff 88%, #036bba 100%);
+      --title-color: white;
+      --text-color: #000000;
+      --border-color: #00138C;
+      --link-color: #0000EE;
+      --btn-bg: #ece9d8;
+      --btn-border: #7a96df;
+      --title-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      font-family: Tahoma, "Trebuchet MS", sans-serif;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;padding:0;
-      background: linear-gradient(180deg,#071122 0%, #0b1524 60%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
-    }
-    .container{max-width:1100px;margin:32px auto;padding:24px}
 
+    [data-theme="dark"] {
+      --bg: #121212;
+      --window-bg: #2C2C2C;
+      --title-bg: linear-gradient(to bottom, #4a4a4a 0%, #2b2b2b 100%);
+      --title-color: #E0E0E0;
+      --text-color: #E0E0E0;
+      --border-color: #000000;
+      --link-color: #66B2FF;
+      --btn-bg: #444444;
+      --btn-border: #222222;
+      --title-shadow: none;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text-color);
+      line-height: 1.4;
+      transition: background 0.3s;
+    }
+
+    .container { max-width: 1100px; margin: 32px auto; padding: 24px; }
+
+    /* WINDOW STYLE (Replaces Cards) */
+    .window {
+      background: var(--window-bg);
+      border: 1px solid var(--border-color);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    
+    .title-bar {
+      background: var(--title-bg);
+      color: var(--title-color);
+      padding: 4px 8px;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: var(--title-shadow);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .title-bar-controls { display: flex; gap: 4px; }
+    .title-bar-btn {
+      width: 16px; height: 16px;
+      background: #ece9d8; border: 1px solid white; border-right-color: #888; border-bottom-color: #888;
+      border-radius: 2px; display: inline-block; cursor: pointer;
+    }
+    [data-theme="dark"] .title-bar-btn { background: #555; border-color: #777; }
+    .close-btn { background: #e04343; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; line-height: 1; }
+    [data-theme="dark"] .close-btn { background: #8b2c2c; }
+
+    .window-content { padding: 16px; }
+
+    /* TYPOGRAPHY & LINKS */
+    h1, h2, h3 { margin: 0 0 12px 0; font-weight: bold; }
+    a { color: var(--link-color); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    p { margin: 0 0 10px 0; }
+    
     /* NAV */
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#5de6c6);display:grid;place-items:center;color:#071122;font-weight:800}
-    nav{display:flex;gap:18px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;font-weight:600}
-    .cta{background:linear-gradient(90deg,var(--accent),#5de6c6);padding:8px 14px;border-radius:8px;color:#071122;font-weight:700;text-decoration:none}
-    .icon-btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:8px}
+    header { margin-bottom: 24px; }
+    .taskbar {
+      background: var(--window-bg); border: 1px solid var(--border-color);
+      padding: 8px 16px; display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.5); border-radius: 4px;
+    }
+    nav { display: flex; gap: 16px; align-items: center; }
+    nav a { font-weight: bold; color: var(--text-color); }
+    
+    .btn {
+      background: var(--btn-bg); border: 1px solid white; border-right-color: #888; border-bottom-color: #888;
+      padding: 4px 12px; color: var(--text-color); cursor: pointer; text-decoration: none; font-size: 13px;
+    }
+    .btn:active { border: 1px solid #888; border-right-color: white; border-bottom-color: white; }
 
-    /* HERO */
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-top:28px}
-    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:16px;padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-    h1{margin:0;font-size:32px}
-    .sub{color:var(--muted);margin-top:8px}
-    .tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-    .tag{background:var(--glass);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px}
-
-    /* SIDE CARD */
-    .profile{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
-    .avatar{width:140px;height:140px;border-radius:18px;background:linear-gradient(135deg,#243b6b,#6b3b8f);display:grid;place-items:center;font-weight:900;font-size:40px}
-    .stats{display:flex;gap:12px}
-    .stat{background:var(--glass-2);padding:10px 12px;border-radius:12px}
-
-    /* PROJECTS */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .card h3{margin:0 0 8px 0}
-    .card p{margin:0;color:var(--muted);font-size:14px}
-
-    /* FOOTER */
-    footer{opacity:0.8;margin-top:32px;color:var(--muted);font-size:14px}
-
+    /* LAYOUTS */
+    .hero { display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .journal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    
     /* RESPONSIVE */
-    @media (max-width:880px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns:repeat(2,1fr)}
+    @media (max-width: 880px){
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width:560px){
-      nav{display:none}
-      .grid{grid-template-columns:1fr}
-      .container{padding:16px;margin:16px}
+    @media (max-width: 560px){
+      .grid, .journal-grid { grid-template-columns: 1fr; }
+      nav { flex-wrap: wrap; }
     }
-
-    /* small utilities */
-    .muted{color:var(--muted)}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;color:var(--muted)}
-
-    /* subtle animations */
-    .appear{transform:translateY(6px);opacity:0;animation:lift .6s ease forwards}
-    @keyframes lift{to{transform:none;opacity:1}}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <div class="brand">
-        <div class="logo">CL</div>
-        <div>
-          <div style="font-weight:800">Colin Luangrath</div>
-          <div class="muted" style="font-size:13px">CS & Psychology — UW–Madison</div>
-        </div>
-      </div>
-
-      <nav>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a class="cta" href="/resume.pdf" target="_blank">Resume</a>
-      </nav>
-
-      <div style="display:flex;gap:8px;align-items:center">
-        <button class="icon-btn" id="themeBtn" title="Toggle theme">🌓</button>
+      <div class="taskbar">
+        <div style="font-weight: bold; font-size: 16px;">Colin Luangrath</div>
+        <nav>
+          <a href="#projects">Projects</a>
+          <a href="#journal">Internet Psych</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a class="btn" href="resume.pdf" target="_blank">Resume.pdf</a>
+          <button class="btn" id="themeBtn">Toggle Theme</button>
+        </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="hero-card appear">
-          <h1>Hi — I’m Colin.</h1>
-          <p class="sub">Computer Science & Psychology student at UW–Madison. Interested in machine learning systems, human–AI interaction, and creative tools.</p>
-
-          <div class="tags">
-            <div class="tag">Python</div>
-            <div class="tag">Machine Learning</div>
-            <div class="tag">Computer Systems & Architecture</div>
-            <div class="tag">Computer Vision</div>
-            <div class="tag">Game Design</div>
+        <article class="window">
+          <div class="title-bar">
+            <span>Welcome.exe</span>
+            <div class="title-bar-controls">
+              <span class="title-bar-btn"></span><span class="title-bar-btn"></span><span class="title-bar-btn close-btn">X</span>
+            </div>
           </div>
-
-          <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
-            <a class="cta" href="#projects">See Projects</a>
-            <a class="btn-ghost" href="https://github.com/cluangrath4" target="_blank">GitHub</a>
-            <a class="btn-ghost" href="https://twitter.com/" target="_blank">Twitter</a>
+          <div class="window-content">
+            <h1>Hi — I’m Colin.</h1>
+            <p>Computer Science & Psychology student at UW–Madison. Interested in machine learning systems, human–AI interaction, and creative tools.</p>
+            <p><strong>Skills:</strong> Python, Machine Learning, Computer Systems & Architecture, Computer Vision, Game Design</p>
+            <div style="margin-top: 16px; display: flex; gap: 8px;">
+              <a class="btn" href="https://github.com/cluangrath4" target="_blank">GitHub</a>
+              <a class="btn" href="mailto:colinluangrath@gmail.com">Email</a>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <aside class="hero-card profile appear" style="justify-self:end">
-          <div class="avatar">CL</div>
-          <div style="font-weight:700">Colin Luangrath</div>
-          <div class="muted">CS & Psychology — UW–Madison</div>
-
-          <div class="stats" style="margin-top:10px">
-            <div class="stat"><div style="font-weight:700">14+</div><div class="muted" style="font-size:12px">Projects</div></div>
-            <div class="stat"><div style="font-weight:700">Argonne</div><div class="muted" style="font-size:12px">Research Intern</div></div>
+        <aside class="window">
+          <div class="title-bar">
+            <span>System Properties</span>
+            <div class="title-bar-controls">
+              <span class="title-bar-btn close-btn">X</span>
+            </div>
           </div>
-
-          <div style="margin-top:12px;width:100%">
-            <a class="cta" href="mailto:you@domain.com">Email me</a>
+          <div class="window-content" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #3a93ff; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 12px auto;">CL</div>
+            <strong>Colin Luangrath</strong>
+            <p style="font-size: 12px;">CS & Psychology — UW–Madison</p>
+            <p style="font-size: 12px; margin-top: 12px;">14+ Projects<br>Argonne Research Intern</p>
           </div>
         </aside>
       </section>
 
-      <section id="projects" class="appear">
-        <h2 style="margin-top:28px">Selected Projects</h2>
-        <div class="grid" style="margin-top:12px">
-          <article class="card">
-            <h3>Performance evaluation of DLIO</h3>
-            <p class="muted">Scaling study for deep learning I/O on ALCF systems. Tools, traces, and visualizations.</p>
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <a class="btn-ghost" href="#">Repo</a>
-              <a class="btn-ghost" href="#">Read paper</a>
+      <section id="projects">
+        <h2 style="color: white; text-shadow: 1px 1px 2px black;">Selected Projects</h2>
+        <div class="grid">
+          <article class="window">
+            <div class="title-bar"><span>DLIO_Performance.txt</span></div>
+            <div class="window-content">
+              <h3>Performance eval of DLIO</h3>
+              <p style="font-size: 13px;">Scaling study for deep learning I/O on ALCF systems. Tools, traces, and visualizations.</p>
+              <a href="#">View Repo</a>
             </div>
           </article>
 
-          <article class="card">
-            <h3>Web-based games</h3>
-            <p class="muted">Psychology-driven interactive narrative built for Game Design class. Uses branching timelines and player reflection.</p>
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <a class="btn-ghost" href="https://cluangrath4.itch.io/">Play</a>
+          <article class="window">
+            <div class="title-bar"><span>Web_Games.exe</span></div>
+            <div class="window-content">
+              <h3>Web-based games</h3>
+              <p style="font-size: 13px;">Psychology-driven interactive narrative built for Game Design class.</p>
+              <a href="https://cluangrath4.itch.io/">Play on Itch.io</a>
             </div>
           </article>
 
-          <article class="card">
-            <h3>YOLO phone detector prototype</h3>
-            <p class="muted">Mobile object detection demo — real-time YOLO integration and UI for accessibility use-cases.</p>
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <a class="btn-ghost" href="#">Demo</a>
-              <a class="btn-ghost" href="#">Docs</a>
+          <article class="window">
+            <div class="title-bar"><span>YOLO_Detector.app</span></div>
+            <div class="window-content">
+              <h3>YOLO phone detector</h3>
+              <p style="font-size: 13px;">Mobile object detection demo — real-time YOLO integration and UI.</p>
+              <a href="#">View Docs</a>
             </div>
           </article>
         </div>
       </section>
 
-      <section id="about" class="appear">
-        <h2 style="margin-top:28px">About</h2>
-        <div class="hero-card" style="margin-top:12px">
-          <p class="muted">I'm a 3rd year Undergraduate at the University of Wisconsin-Madison studying Computer Science, Psychology, and Game Design.</p>
-          <ul class="muted" style="margin-top:10px">
-            <li>UW–Madison — CS & Psychology</li>
-            <li>Argonne National Lab — ML workload emulator (Research Intern)</li>
-            <li>Interests: ML systems, CV, HCI, Game Design</li>
-          </ul>
+      <section id="journal">
+        <h2 style="color: white; text-shadow: 1px 1px 2px black;">Psychology of the Internet Project</h2>
+        <div class="journal-grid">
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day1.doc</span></div>
+            <div class="window-content">
+              <strong>Day 1: Assignment Review</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 1 entry regarding online behavior and identity...</p>
+            </div>
+          </article>
+
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day2.doc</span></div>
+            <div class="window-content">
+              <strong>Day 2: Reflection</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 2 entry discussing anonymity effects...</p>
+            </div>
+          </article>
+
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day3.doc</span></div>
+            <div class="window-content">
+              <strong>Day 3: Case Study</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 3 entry on social media validation loops...</p>
+            </div>
+          </article>
+
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day4.doc</span></div>
+            <div class="window-content">
+              <strong>Day 4: Synthesis</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 4 entry...</p>
+            </div>
+          </article>
+          
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day5.doc</span></div>
+            <div class="window-content">
+              <strong>Day 5: Application</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 5 entry...</p>
+            </div>
+          </article>
+
+          <article class="window">
+            <div class="title-bar"><span>Journal_Day6.doc</span></div>
+            <div class="window-content">
+              <strong>Day 6: Conclusion</strong>
+              <p style="font-size: 13px; margin-top: 8px;">Placeholder for day 6 wrapping up the week's topics...</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section id="contact" class="appear">
-        <h2 style="margin-top:28px">Contact</h2>
-        <div class="hero-card" style="margin-top:12px;display:flex;gap:18px;flex-direction:column">
-          <p class="muted">Want to collaborate or get in touch? Email me!</p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a class="cta" href="mailto:you@domain.com">Email</a>
+      <section id="about">
+        <article class="window">
+          <div class="title-bar"><span>About_Me.txt</span></div>
+          <div class="window-content">
+            <h3>About</h3>
+            <p>I'm a 3rd year Undergraduate at the University of Wisconsin-Madison studying Computer Science, Psychology, and Game Design.</p>
+            <ul>
+              <li>Argonne National Lab — ML workload emulator (Research Intern)</li>
+              <li>Interests: ML systems, CV, HCI, Game Design</li>
+            </ul>
           </div>
-        </div>
+        </article>
       </section>
 
     </main>
-
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div>© Colin Luangrath — Built with HTML & CSS</div>
-        <div class="muted">Hosted on GitHub Pages</div>
-      </div>
-    </footer>
   </div>
 
   <script>
     const themeBtn = document.getElementById('themeBtn');
     const root = document.documentElement;
-    const saved = localStorage.getItem('theme');
-    if(saved === 'light') setLight();
-    themeBtn.addEventListener('click',()=>{
-      if(document.documentElement.style.getPropertyValue('--bg')===''){
-      }
-      if(document.documentElement.style.getPropertyValue('--light-mode')==='true'){
-        setDark();
+    const saved = localStorage.getItem('xp-theme');
+    
+    if (saved === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if (root.getAttribute('data-theme') === 'dark') {
+        root.removeAttribute('data-theme');
+        localStorage.setItem('xp-theme', 'light');
       } else {
-        setLight();
+        root.setAttribute('data-theme', 'dark');
+        localStorage.setItem('xp-theme', 'dark');
       }
     });
-    function setLight(){
-      root.style.setProperty('--bg','#f7fafc');
-      root.style.setProperty('--panel','#ffffff');
-      root.style.setProperty('--muted','#4a5568');
-      root.style.setProperty('--accent','#6b46c1');
-      root.style.setProperty('color-scheme','light');
-      root.style.setProperty('--light-mode','true');
-      document.body.style.color = '#0b1220';
-      localStorage.setItem('theme','light');
-    }
-    function setDark(){
-      root.style.setProperty('--bg','#0f1724');
-      root.style.setProperty('--panel','#0b1220');
-      root.style.setProperty('--muted','#9aa4b2');
-      root.style.setProperty('--accent','#7c5cff');
-      root.style.setProperty('color-scheme','dark');
-      root.style.setProperty('--light-mode','false');
-      document.body.style.color = '#e6eef6';
-      localStorage.setItem('theme','dark');
-    }
   </script>
 </body>
 </html>
-
