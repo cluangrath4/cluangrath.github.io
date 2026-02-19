@@ -75,3 +75,44 @@ nav a { font-weight: bold; color: var(--text-color); }
 
 @media (max-width: 880px){ .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px){ .grid, .journal-grid { grid-template-columns: 1fr; } nav { flex-wrap: wrap; } }
+
+/* Journal Accordion Styles */
+details.unit-folder {
+  margin-bottom: 12px;
+  background: var(--window-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+details.unit-folder summary {
+  padding: 10px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+  background: var(--btn-bg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+details.unit-folder summary::-webkit-details-marker {
+  display: none; /* Hides default arrow */
+}
+
+details.unit-folder summary::before {
+  content: "📁"; /* Default closed folder */
+}
+
+details.unit-folder[open] summary::before {
+  content: "📂"; /* Open folder */
+}
+
+details.unit-folder[open] summary {
+  background: var(--title-bg);
+  color: var(--title-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.unit-content {
+  padding: 16px;
+}
