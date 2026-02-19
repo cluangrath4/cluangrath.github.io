@@ -43,14 +43,16 @@ async function fetchLastFm() {
     }
 
     if (artElement && track.image && track.image.length > 0) {
-      // Index 1 is usually the 'medium' sized image
-      const imageUrl = track.image[1]['#text'];
-      if (imageUrl) {
-        artElement.src = imageUrl;
-      } else {
-        artElement.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='; // blank fallback
-      }
-    }
+        // Index 2 is 'large', which tends to have fewer broken links than 'medium'
+        const imageUrl = track.image[2]['#text'] || track.image[1]['#text'];
+        
+        if (imageUrl && imageUrl.startsWith('http')) {
+            artElement.src = imageUrl;
+        } else {
+            // Triggers the fallback icon if Last.fm returns an empty string
+            artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
+        }
+        }
 
   } catch (err) {
     console.error('Error fetching Last.fm data:', err);
