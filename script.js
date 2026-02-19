@@ -1,25 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const themeBtn = document.getElementById('themeBtn');
-  const root = document.documentElement;
-  const saved = localStorage.getItem('xp-theme');
-  
-  if (saved === 'dark') {
-    root.setAttribute('data-theme', 'dark');
-  }
-
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      if (root.getAttribute('data-theme') === 'dark') {
-        root.removeAttribute('data-theme');
-        localStorage.setItem('xp-theme', 'light');
-      } else {
-        root.setAttribute('data-theme', 'dark');
-        localStorage.setItem('xp-theme', 'dark');
-      }
-    });
-  }
-});
-
 /**
  * Function to allow for the "Now Playing" section of the main page, from last.fm (connected to Spotify)
  */
@@ -32,14 +10,12 @@ async function fetchLastFm() {
     const res = await fetch(url);
     const data = await res.json();
     
-    // Return currently playing song
     const track = data.recenttracks.track[0];
     const isPlaying = track['@attr'] && track['@attr'].nowplaying;
     
     const textElement = document.getElementById('now-playing-text');
     const artElement = document.getElementById('now-playing-art');
     
-    // Safely get artist and track name
     const artistName = track.artist ? track.artist['#text'] : 'Unknown Artist';
     const trackName = track.name || 'Unknown Track';
 
@@ -52,33 +28,26 @@ async function fetchLastFm() {
     }
 
     if (artElement) {
-      // Check if the image array exists and has links
       if (track.image && track.image.length > 2 && track.image[2]['#text']) {
-        artElement.src = track.image[2]['#text']; // size: large
+        artElement.src = track.image[2]['#text'];
       } else {
-        // Fallback icon
         artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
       }
     }
-
   } catch (err) {
     console.error('Error fetching Last.fm data:', err);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 1. Last.fm Initialization
   fetchLastFm();
   setInterval(fetchLastFm, 30000);
-});
 
-//Testing Windows-like functionality
-document.addEventListener('DOMContentLoaded', () => {
-  // Dark Mode
+  // 2. Dark Mode Logic
   const themeBtn = document.getElementById('themeBtn');
   const root = document.documentElement;
-  const savedTheme = localStorage.getItem('xp-theme');
-  
-  if (savedTheme === 'dark') {
+  if (localStorage.getItem('xp-theme') === 'dark') {
     root.setAttribute('data-theme', 'dark');
   }
 
@@ -94,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Window Mode + Reset Logics
+  // 3. Window Mode & Reset Logic
   let windowMode = localStorage.getItem('xp-window-mode') !== 'off';
   const toggle = document.getElementById('window-mode-toggle');
   
@@ -116,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       win.dataset.y = 0;
       win.classList.remove('maximized');
     });
-    // Clear taskbar
     const taskbar = document.getElementById('bottom-taskbar');
     if (taskbar) taskbar.innerHTML = '';
   }
@@ -129,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Draggable Windows
+  // 4. Draggable Windows Logic
   let highestZ = 100;
   const taskbar = document.getElementById('bottom-taskbar');
 
@@ -139,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleBar = win.querySelector('.title-bar');
     const windowTitle = titleBar ? titleBar.querySelector('span').innerText : 'Window';
     
-    // Explicitly grab the buttons by their new classes
     const minBtn = win.querySelector('.min-btn');
     const maxBtn = win.querySelector('.max-btn');
     const closeBtn = win.querySelector('.close-btn');
@@ -149,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
       win.style.zIndex = ++highestZ;
     });
 
-    // Close: Hide window but keep grid intact
     if (closeBtn) {
       closeBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
@@ -158,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Minimize: Hide window and create taskbar item
     if (minBtn) {
       minBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
@@ -174,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
           taskItem.addEventListener('click', () => {
             win.style.visibility = 'visible';
             win.style.zIndex = ++highestZ;
-            taskItem.remove(); // Remove from taskbar
+            taskItem.remove(); 
           });
           
           taskbar.appendChild(taskItem);
@@ -182,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Maximize
     if (maxBtn) {
       maxBtn.addEventListener('click', (e) => {
         if (!windowMode) return;
@@ -192,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Dragging Logic
     let isDragging = false;
     let startX, startY;
 
@@ -220,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         win.dataset.y = y;
         win.style.transform = `translate(${x}px, ${y}px)`;
       });
-      // why are you here?? get out!
+
       document.addEventListener('mouseup', () => {
         isDragging = false;
       });
