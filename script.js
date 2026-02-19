@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchLastFm() {
   const username = 'Catiitaro';
   const apiKey = '484f78e76b19871360e701f315d02dc2'; 
-  const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
+  
+  // Step 1: Get the current track
+  const recentTracksUrl = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(recentTracksUrl);
     const data = await res.json();
     const track = data.recenttracks.track[0];
     const isPlaying = track['@attr'] && track['@attr'].nowplaying;
@@ -42,17 +44,31 @@ async function fetchLastFm() {
       }
     }
 
-    if (artElement && track.image && track.image.length > 0) {
-        // Index 2 is 'large', which tends to have fewer broken links than 'medium'
-        const imageUrl = track.image[2]['#text'] || track.image[1]['#text'];
+    // Step 2: Use album.getinfo for the image
+    const artist = track.artist['#text'];
+    const album = track.album['#text'];
+    
+    if (artist && album && artElement) {
+      const albumInfoUrl = `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apiKey}&artist=${encodeURIComponent(artist)}&album=${encodeURIComponent(album)}&format=json`;
+      
+      const albumRes = await fetch(albumInfoUrl);
+      const albumData = await albumRes.json();
+      
+      if (albumData.album && albumData.album.image) {
+        // Grab the 'large' or 'medium' image
+        const imageUrl = albumData.album.image[2]['#text'] || albumData.album.image[1]['#text'];
         
         if (imageUrl && imageUrl.startsWith('http')) {
-            artElement.src = imageUrl;
+          artElement.src = imageUrl;
         } else {
-            // Triggers the fallback icon if Last.fm returns an empty string
-            artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
+          artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
         }
-        }
+      } else {
+        artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
+      }
+    } else if (artElement) {
+       artElement.src = 'https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-3.png';
+    }
 
   } catch (err) {
     console.error('Error fetching Last.fm data:', err);
